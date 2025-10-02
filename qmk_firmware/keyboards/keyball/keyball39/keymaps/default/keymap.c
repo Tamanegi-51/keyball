@@ -69,3 +69,6 @@ void oledkit_render_info_user(void) {
     keyball_oled_render_layerinfo();
 }
 #endif
+        // 例：右手のトラックボールの下に配置されている特定のキーに音量を割り当てる場合
+        // KC_VOLDOWN, // 音量ダウン
+        // KC_VOLUP,  // 音量アップ
