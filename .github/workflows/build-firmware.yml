@@ -1,18 +1,14 @@
-name: Build a firmware
+name: Build firmware (test)
 
 on:
-  workflow_call:
-    inputs:
-      keyboard:
-        type: string
-        required: true
-      keymap:
-        type: string
-        required: true
+  push:
+    paths:
+      - 'keyboards/keyball/**'
+      - '.github/workflows/build-firmware.yml'
 
 jobs:
   build:
-    name: Build ${{ inputs.keyboard }}:${{ inputs.keymap }}
+    name: Build keyball46:default
     runs-on: ubuntu-22.04
     container:
       image: ghcr.io/qmk/qmk_cli:latest
@@ -28,11 +24,10 @@ jobs:
 
       - name: Compile firmware
         working-directory: /opt/qmk_firmware
-        run: qmk compile -j 4 -kb keyball/${{ inputs.keyboard }} -km ${{ inputs.keymap }}
+        run: qmk compile -j 4 -kb keyball/keyball46 -km default
 
       - name: Upload firmware
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ inputs.keyboard }}-${{ inputs.keymap }}-firmware
+          name: keyball46-default-firmware
           path: /opt/qmk_firmware/.build/*.hex
-
