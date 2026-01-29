@@ -39,4 +39,3 @@ jobs:
         with:
           name: ${{ inputs.keyboard }}-${{ inputs.keymap }}-firmware
           path: __qmk__/*.hex
-
