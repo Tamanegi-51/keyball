@@ -25,18 +25,17 @@ jobs:
       - name: Checkout source
         uses: actions/checkout@v4
 
-      - name: Checkout qmk_firmware
-        uses: ./.github/actions/checkout-qmk_firmware
+      - name: Copy keyboard sources into container
+        run: |
+          mkdir -p /qmk_firmware/keyboards/keyball
+          cp -r qmk_firmware/keyboards/keyball/* /qmk_firmware/keyboards/keyball/
 
-      - name: Install a link to own source
-        run: ln -s $(pwd)/qmk_firmware/keyboards/keyball __qmk__/keyboards/keyball
-
-      - name: Compile and link
+      - name: Compile firmware
+        working-directory: /qmk_firmware
         run: qmk compile -j 4 -kb keyball/${{ inputs.keyboard }} -km ${{ inputs.keymap }}
 
-      - name: Archive built firmware
+      - name: Archive firmware
         uses: actions/upload-artifact@v4
         with:
           name: ${{ inputs.keyboard }}-${{ inputs.keymap }}-firmware
-          path: __qmk__/*.hex
-
+          path: /qmk_firmware/.build/*.hex
