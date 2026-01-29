@@ -35,3 +35,4 @@ jobs:
         with:
           name: ${{ inputs.keyboard }}-${{ inputs.keymap }}-firmware
           path: /opt/qmk_firmware/.build/*.hex
+
