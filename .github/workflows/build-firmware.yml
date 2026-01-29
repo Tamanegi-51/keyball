@@ -31,7 +31,7 @@ jobs:
       - name: Install a link to own source
         run: ln -s $(pwd)/qmk_firmware/keyboards/keyball __qmk__/keyboards/keyball
 
-      # ❌ pip install は削除
+      # ❌ 削除済み: Python モジュールのインストール（PEP 668 により禁止）
       # - name: Install missing python modules
       #   run: /usr/bin/python3 -m pip install -r __qmk__/requirements.txt
 
